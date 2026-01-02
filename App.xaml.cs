@@ -13,5 +13,10 @@ namespace SeeloewenMapper
         {
             Base.Init();
         }
+
+        private void Application_Exit(object sender, StartupEventArgs e)
+        {
+            Base.Exit();
+        }
     }
 }

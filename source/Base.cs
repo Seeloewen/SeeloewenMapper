@@ -16,5 +16,14 @@ namespace SeeloewenMapper
             vigemClient = new ViGEmClient();
             ConnectionHandler.Init();
         }
+
+        public static void Exit()
+        {
+            //Disconnect every virtual controller before exiting
+            foreach(var controller in ConnectionHandler.controllers)
+            {
+                controller.Value.OnDisconnect();
+            }
+        }
     }
 }

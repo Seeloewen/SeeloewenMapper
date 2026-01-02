@@ -10,12 +10,14 @@ namespace SeeloewenMapper.core
     {
         private HidDevice device;
         private HidStream deviceStream;
+        public string devicePath;
         private int maxInputReportLength = 0;
         private IXbox360Controller virtualDevice;
 
         public Controller(HidDevice device)
         {
             this.device = device;
+            devicePath = device.DevicePath;
             deviceStream = device.Open();
             maxInputReportLength = device.GetMaxInputReportLength();
 
@@ -31,13 +33,29 @@ namespace SeeloewenMapper.core
             Base.wndMain.Log("Detected new controller, starting to receive and remap input...");
         }
 
+        public void OnDisconnect()
+        {
+            //This will be run when the controller is no longer connected
+            deviceStream.Close();
+            virtualDevice.Disconnect();
+        }
         public void ReceiveData()
         {
             while (true)
             {
-                byte[] buffer = new byte[maxInputReportLength];
-                int i = deviceStream.Read(buffer);
-                SetVirtualState(ControllerParser.FromDS4(buffer));               
+                try
+                {
+                    byte[] buffer = new byte[maxInputReportLength];
+                    int i = deviceStream.Read(buffer);
+                    SetVirtualState(ControllerParser.FromDS4(buffer));
+                }
+                catch (Exception e)
+                {
+                    Base.wndMain.Log("Disconnected controller " + device.GetProductName() + ":" + e.Message);
+                    OnDisconnect();
+                    ConnectionHandler.controllers.Remove(devicePath);
+                    break;
+                }
             }
         }
 

@@ -2,6 +2,7 @@
 using HidSharp.Reports;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace SeeloewenMapper.core
@@ -26,7 +27,7 @@ namespace SeeloewenMapper.core
             foreach (var d in DeviceList.Local.GetHidDevices())
             {
                 if (d.ProductID == 0x028E && d.VendorID == 0x045E) continue; //Skip XBOX 360 Controllers
-                if (controllers.ContainsKey(d.DevicePath)) continue;
+                if (controllers.ContainsKey(d.DevicePath)) continue; //Skip already added controllers
 
                 Base.wndMain.Log("-----------------");
                 Base.wndMain.Log($"VID: 0x{d.VendorID:X4}");
