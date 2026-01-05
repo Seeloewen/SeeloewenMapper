@@ -17,7 +17,9 @@
             bool leftPressed,
             bool rightPressed,
             bool startPressed,
-            bool backPressed
+            bool backPressed,
+            bool l3Pressed,
+            bool r3Pressed
             )
     { }
 }

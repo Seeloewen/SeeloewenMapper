@@ -21,6 +21,9 @@
             bool optionsPressed = (values[6] & 0b00100000) != 0;
             bool sharePressed = (values[6] & 0b00010000) != 0;
 
+            bool l3Pressed = (values[6] & 0b01000000) != 0;
+            bool r3Pressed = (values[6] & 0b10000000) != 0;
+
             double m = (short.MaxValue - short.MinValue) / 255;
             short leftStickX = (short)(m * values[1] + short.MinValue);
             short rightStickX = (short)(m * values[3] + short.MinValue);
@@ -45,7 +48,9 @@
                 leftPressed,
                 rightPressed,
                 optionsPressed,
-                sharePressed);
+                sharePressed,
+                l3Pressed,
+                r3Pressed);
 
         }
     }

@@ -85,6 +85,9 @@ namespace SeeloewenMapper.core
             virtualDevice.SetButtonState(Xbox360Button.Start, state.startPressed);
             virtualDevice.SetButtonState(Xbox360Button.Back, state.backPressed);
 
+            virtualDevice.SetButtonState(Xbox360Button.LeftThumb, state.l3Pressed);
+            virtualDevice.SetButtonState(Xbox360Button.RightThumb, state.r3Pressed);
+
             virtualDevice.SubmitReport();
         }
     }
