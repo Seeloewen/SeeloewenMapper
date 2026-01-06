@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using SeeloewenMapper.Core;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
@@ -12,11 +13,6 @@ namespace SeeloewenMapper
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             Base.Init();
-        }
-
-        private void Application_Exit(object sender, StartupEventArgs e)
-        {
-            Base.Exit();
         }
     }
 }

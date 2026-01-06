@@ -3,4 +3,9 @@
   <PropertyGroup>
     <_LastSelectedProfileId>G:\Coding\Projekte\Visual Studio\SeeloewenMapper\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Source\Core\Windowing\MainPages\LogPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

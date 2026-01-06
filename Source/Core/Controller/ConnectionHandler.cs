@@ -1,15 +1,13 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+using SeeloewenMapper.Core.Logging;
 
-namespace SeeloewenMapper.core
+namespace SeeloewenMapper.Core.Controller
 {
     internal static class ConnectionHandler
     {
         public static Dictionary<string, Controller> controllers;
+        private static bool skipNextConnection = false; //Used when connecting virtual devices to avoid duplicate OnConnect calls
 
         public static void Init()
         {
@@ -22,18 +20,14 @@ namespace SeeloewenMapper.core
 
         public static void OnConnect() //Gets called when ANY device gets connected
         {
-            Base.wndMain.Log("----- BEGINNING NEW SEARCH FOR CONTROLLERS -----");
+            if (skipNextConnection) return;
+
+            Log.Info("Searching for controllers...");
 
             foreach (var d in DeviceList.Local.GetHidDevices())
             {
                 if (d.ProductID == 0x028E && d.VendorID == 0x045E) continue; //Skip XBOX 360 Controllers
                 if (controllers.ContainsKey(d.DevicePath)) continue; //Skip already added controllers
-
-                Base.wndMain.Log("-----------------");
-                Base.wndMain.Log($"VID: 0x{d.VendorID:X4}");
-                Base.wndMain.Log($"PID: 0x{d.ProductID:X4}");
-                Base.wndMain.Log($"Name: {d.GetProductName()}");
-                Base.wndMain.Log($"DevicePath: {d.DevicePath.ToLowerInvariant()}");
 
                 try
                 {
@@ -44,17 +38,26 @@ namespace SeeloewenMapper.core
                         {
                             ushort usagePage = (ushort)(val >> 16); //Last 16 bytes are usage page
                             ushort usage = (ushort)(val & 0xFFFF); //First 16 bytes are usage
-                            Base.wndMain.Log($"DeviceItem: UsagePage=0x{usagePage:X4}, Usage=0x{usage:X4}");
 
-                            if (usagePage == 0x01 && usage == 0x05) controllers.Add(d.DevicePath, new Controller(d));
+                            if (usagePage == 0x01 && usage == 0x05)
+                            {
+                                //Even though were using a dictionary and can handle duplicates, we don't want to show a duplicate connection info
+                                if (controllers.ContainsKey(d.DevicePath)) continue; 
+
+                                Log.Info($"Detected new controller (Name: {d.GetProductName()}, VID: 0x{d.VendorID:X4}, PID: 0x{d.ProductID:X4}, DevicePath: {d.DevicePath.ToLowerInvariant()})");                         
+                                controllers.Add(d.DevicePath, new Controller(d));
+                                skipNextConnection = true;
+                            }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Could not get Report Descriptor {ex.Message}");
+                    Log.Warn($"Warning: Could not get Report Descriptor for device {d.GetProductName()}. It cannot be determined if it's a controller. {ex.Message}", true);
                 }
             }
+
+            Log.Info($"Search completed, {controllers.Count} controller(s) are currently connected.");
         }
     }
 }

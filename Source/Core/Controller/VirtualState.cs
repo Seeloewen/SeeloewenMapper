@@ -1,4 +1,4 @@
-﻿namespace SeeloewenMapper.core
+﻿namespace SeeloewenMapper.Core.Controller
 {
     internal record VirtualState(bool XPressed,
             bool YPressed,

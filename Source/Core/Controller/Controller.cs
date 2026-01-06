@@ -1,9 +1,9 @@
 ﻿using HidSharp;
 using Nefarius.ViGEm.Client.Targets;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
-using System.IO;
+using SeeloewenMapper.Core.Logging;
 
-namespace SeeloewenMapper.core
+namespace SeeloewenMapper.Core.Controller
 {
 
     internal class Controller
@@ -30,7 +30,7 @@ namespace SeeloewenMapper.core
             Thread t = new Thread(ReceiveData);
             t.Start();
 
-            Base.wndMain.Log("Detected new controller, starting to receive and remap input...");
+            Log.Info($"Successfully connected and mapped device {device.GetProductName()}.");
         }
 
         public void OnDisconnect()
@@ -51,7 +51,7 @@ namespace SeeloewenMapper.core
                 }
                 catch (Exception e)
                 {
-                    Base.wndMain.Log("Disconnected controller " + device.GetProductName() + ":" + e.Message);
+                    Log.Info("Disconnected controller " + device.GetProductName() + ":" + e.Message);
                     OnDisconnect();
                     ConnectionHandler.controllers.Remove(devicePath);
                     break;
