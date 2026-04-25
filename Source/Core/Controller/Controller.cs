@@ -19,17 +19,17 @@ namespace SeeloewenMapper.Core.Controller
 
         public Controller(HidDevice device)
         {
-            id = ConnectionHandler.nextId;
-            devicePath = device.DevicePath;
+            id = ConnectionHandler.nextId++;
 
             try
             {
+                devicePath = device.DevicePath;
                 deviceStream = device.Open();
                 maxInputReportLength = device.GetMaxInputReportLength();
             }
             catch (Exception ex)
             {
-                Log.Error($"Error while retrieving initial data from controller {id}: {ex.Message}");
+                Log.Error($"Error while retrieving initial data from controller #{id}: {ex.Message}");
             }
 
 
@@ -41,16 +41,23 @@ namespace SeeloewenMapper.Core.Controller
                 virtualDevice.AutoSubmitReport = false;
                 isConnected = true;
             }
-            catch (Win32Exception ex) when (ex.NativeErrorCode != 0)
+            catch (Exception ex)
             {
-                Log.Error($"Error while connecting virtual device for controller {id}: {ex.Message}");
+                if (ex is Win32Exception wex && wex.NativeErrorCode == 0)
+                {
+                    Log.Debug($"Creation of virtual device for controller #{id} reported: {ex.Message}");
+                }
+                else
+                {
+                    Log.Error($"Error while connecting virtual device for controller #{id}: {ex.Message}");
+                }
             }
 
             //Begin reading data from stream
             Thread t = new Thread(ReceiveData);
             t.Start();
 
-            Log.Info($"Successfully connected and mapped controller {id}.");
+            Log.Info($"Successfully connected and mapped controller #{id}.");
         }
 
         public void Disconnect()
@@ -69,7 +76,7 @@ namespace SeeloewenMapper.Core.Controller
 
         public void ReceiveData()
         {
-            Log.Debug($"Beginning to receive data from controller {id}");
+            Log.Debug($"Beginning to receive data from controller #{id}");
 
             while (isConnected)
             {
@@ -81,7 +88,7 @@ namespace SeeloewenMapper.Core.Controller
                 }
                 catch (Exception e)
                 {
-                    Log.Info($"Disconnected controller {id}: {e.Message}");
+                    Log.Info($"Disconnected controller #{id}: {e.Message}");
                     OnDisconnect();
                     break;
                 }

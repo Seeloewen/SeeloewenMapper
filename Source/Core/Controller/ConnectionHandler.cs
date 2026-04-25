@@ -1,6 +1,7 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
 using SeeloewenMapper.Core.Logging;
+using System.ComponentModel;
 
 namespace SeeloewenMapper.Core.Controller
 {
@@ -11,7 +12,7 @@ namespace SeeloewenMapper.Core.Controller
         public static Dictionary<string, Controller> controllers;
         private static bool skipNextConnection = false; //Used when connecting virtual devices to avoid duplicate OnConnect calls
         private static readonly object connectionLock = new object();
-            
+
         public static void Init()
         {
             controllers = new Dictionary<string, Controller>();
@@ -53,9 +54,9 @@ namespace SeeloewenMapper.Core.Controller
                                     //Even though were using a dictionary and can handle duplicates, we don't want to show a duplicate connection info
                                     if (controllers.ContainsKey(d.DevicePath)) continue;
 
-                                    Log.Info($"Detected new controller (Name: {d.GetProductName()}, VID: 0x{d.VendorID:X4}, PID: 0x{d.ProductID:X4}, DevicePath: {d.DevicePath.ToLowerInvariant()})");
-                                    controllers.Add(d.DevicePath, new Controller(d));
                                     skipNextConnection = true;
+                                    Log.Info($"Detected new controller #{nextId} (Name: {d.GetProductName()}, VID: 0x{d.VendorID:X4}, PID: 0x{d.ProductID:X4}, DevicePath: {d.DevicePath.ToLowerInvariant()})");
+                                    controllers.Add(d.DevicePath, new Controller(d));
                                 }
                             }
                         }
@@ -67,7 +68,7 @@ namespace SeeloewenMapper.Core.Controller
                 }
 
                 Log.Info($"Search completed, {controllers.Count} controller(s) are currently connected.");
-            }              
+            }
         }
     }
 }
