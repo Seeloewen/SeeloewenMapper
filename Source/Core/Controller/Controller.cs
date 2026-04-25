@@ -55,6 +55,7 @@ namespace SeeloewenMapper.Core.Controller
 
             //Begin reading data from stream
             Thread t = new Thread(ReceiveData);
+            t.Priority = ThreadPriority.Highest;
             t.Start();
 
             Log.Info($"Successfully connected and mapped controller #{id}.");
