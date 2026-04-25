@@ -1,17 +1,8 @@
 ﻿using SeeloewenMapper.Core.Logging;
-using SeeloewenMapper.Source.Core;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SeeloewenMapper.Core.Windowing.MainPages
 {
@@ -22,7 +13,8 @@ namespace SeeloewenMapper.Core.Windowing.MainPages
         {
             {"INFO", new SolidColorBrush(Colors.Blue) },
             {"WARNING", new SolidColorBrush(Colors.DarkOrange) },
-            {"ERROR", new SolidColorBrush(Colors.Red) }
+            {"ERROR", new SolidColorBrush(Colors.Red) },
+            {"DEBUG", new SolidColorBrush(Colors.DarkCyan) }
         };
 
         public LogPage()

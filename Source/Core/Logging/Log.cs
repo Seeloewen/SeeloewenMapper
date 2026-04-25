@@ -33,6 +33,11 @@ namespace SeeloewenMapper.Core.Logging
             messages.Add(new LogMessage(message, DateTime.Now, LogLevel.ERROR, verbose));
         }
 
+        public static void Debug(string message)
+        {
+            messages.Add(new LogMessage(message, DateTime.Now, LogLevel.DEBUG, true));
+        }
+
         public static void OnLogUpdated(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (messages.Count > 1024)

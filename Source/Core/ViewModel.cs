@@ -1,8 +1,5 @@
 ﻿using SeeloewenMapper.Core.Logging;
 using SeeloewenMapper.Core.Windowing;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 
 namespace SeeloewenMapper.Core
@@ -11,6 +8,8 @@ namespace SeeloewenMapper.Core
     {
         public static void UpdateLog()
         {
+            if (Application.Current == null) return;
+
             Application.Current.Dispatcher.Invoke(() =>
             {
                 WindowManager.wndMain?.logPage.stpLog.Children.Clear();

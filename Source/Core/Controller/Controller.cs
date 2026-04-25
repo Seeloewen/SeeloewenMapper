@@ -2,12 +2,15 @@
 using Nefarius.ViGEm.Client.Targets;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
 using SeeloewenMapper.Core.Logging;
+using System.ComponentModel;
 
 namespace SeeloewenMapper.Core.Controller
 {
 
     internal class Controller
     {
+        public int id;
+
         private HidDevice device;
         private HidStream deviceStream;
         public string devicePath;
@@ -16,21 +19,29 @@ namespace SeeloewenMapper.Core.Controller
 
         public Controller(HidDevice device)
         {
+            id = ConnectionHandler.nextId;
             this.device = device;
             devicePath = device.DevicePath;
             deviceStream = device.Open();
             maxInputReportLength = device.GetMaxInputReportLength();
 
             //Create virtual device
-            virtualDevice = Base.vigemClient.CreateXbox360Controller();
-            virtualDevice.Connect();
-            virtualDevice.AutoSubmitReport = false;
+            try
+            {
+                virtualDevice = Base.vigemClient.CreateXbox360Controller();
+                virtualDevice.Connect();
+                virtualDevice.AutoSubmitReport = false;
+            }
+            catch (Win32Exception ex) when (ex.NativeErrorCode != 0)
+            {
+                Log.Error($"Error while connecting virtual device for controller {id}: {ex.Message}");
+            }
 
             //Begin reading data from stream
             Thread t = new Thread(ReceiveData);
             t.Start();
 
-            Log.Info($"Successfully connected and mapped device {device.GetProductName()}.");
+            Log.Info($"Successfully connected and mapped controller {id}.");
         }
 
         public void OnDisconnect()
@@ -39,8 +50,11 @@ namespace SeeloewenMapper.Core.Controller
             deviceStream.Close();
             virtualDevice.Disconnect();
         }
+
         public void ReceiveData()
         {
+            Log.Debug($"Beginning to receive data from controller {id}");
+
             while (true)
             {
                 try
@@ -51,7 +65,7 @@ namespace SeeloewenMapper.Core.Controller
                 }
                 catch (Exception e)
                 {
-                    Log.Info("Disconnected controller " + device.GetProductName() + ":" + e.Message);
+                    Log.Info($"Disconnected controller {id}: {e.Message}");
                     OnDisconnect();
                     ConnectionHandler.controllers.Remove(devicePath);
                     break;
