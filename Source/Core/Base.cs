@@ -28,10 +28,12 @@ namespace SeeloewenMapper.Core
 
         public static void Exit()
         {
+            Log.Shutdown();
+
             //Disconnect every virtual controller before exiting
             foreach(var controller in ConnectionHandler.controllers)
             {
-                controller.Value.OnDisconnect();
+                controller.Value.Disconnect();
             }
         }
     }

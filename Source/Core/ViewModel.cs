@@ -1,5 +1,6 @@
 ﻿using SeeloewenMapper.Core.Logging;
 using SeeloewenMapper.Core.Windowing;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace SeeloewenMapper.Core
@@ -8,12 +9,11 @@ namespace SeeloewenMapper.Core
     {
         public static void UpdateLog()
         {
-            if (Application.Current == null) return;
-
             Application.Current.Dispatcher.Invoke(() =>
             {
                 WindowManager.wndMain?.logPage.stpLog.Children.Clear();
-                foreach (LogMessage message in Log.GetMessages())
+                List<LogMessage> messages = Log.GetMessages().ToList();
+                foreach (LogMessage message in messages)
                 {
                     WindowManager.wndMain?.logPage.LogMessage(message.message, message.dateTime.ToString(), message.level.ToString(), message.verbose);
                 }
