@@ -16,6 +16,11 @@ namespace SeeloewenMapper.Core.Logging
             messages.CollectionChanged += OnLogUpdated;
         }
 
+        public static void Shutdown()
+        {
+            messages.CollectionChanged -= OnLogUpdated;
+        }
+
         public static void Clear() => messages.Clear();
 
         public static void Info(string message, bool verbose = false)
