@@ -6,5 +6,4 @@ Warning: This software is currently in early stages of development and will thus
 If you stumble across any issues, feel free to create an issue on GitHub so it can be fixed as soon as possible.
 
 ## Known Issues
-* Poor performance / input delay when a lot of system resources are used
-* "Ghost connections" where the controller seems to be successfully detected, but ViGEmBus fails to create a virtual controller
+* "Ghost connections" where two virtual devices are created and connected. This is just a visual issue though and only one device actually works.
