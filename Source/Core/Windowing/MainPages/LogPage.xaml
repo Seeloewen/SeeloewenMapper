@@ -10,7 +10,9 @@
     <Canvas>
         <Button Name="btnCopy" Content="Copy" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" Width="76" Height="20" FontSize="12" Click="btnCopy_Click"/>
         <Button Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="91,3,0,0" VerticalAlignment="Top" Width="76" Height="20" FontSize="12" Click="btnClear_Click"/>
-        <StackPanel Name="stpLog" Focusable="False" Height="327" Width="774" HorizontalAlignment="Center" Canvas.Top="28" VerticalAlignment="Top" Background="White"/>
+        <ScrollViewer HorizontalAlignment="Center" Canvas.Top="29" VerticalAlignment="Center" Width="767" Height="321">
+            <StackPanel Name="stpLog" Focusable="False" Canvas.Top="28" Background="White"/>
+        </ScrollViewer>
         <CheckBox Name="cbVerboseMessages" Content="Show verbose messages" Canvas.Left="181" Canvas.Top="5" Click="cbVerboseMessages_Click"/>
     </Canvas>
 </Page>
