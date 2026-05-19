@@ -10,8 +10,8 @@ namespace SeeloewenMapper.Core
     {
         public static ViGEmClient? vigemClient;
 
-        public const string VERSION = "0.0.1";
-        public const string VERSION_DATE = "06.01.2026";
+        public const string VERSION = "0.0.2";
+        public const string VERSION_DATE = "26.04.2026";
 
         public static void Init()
         {

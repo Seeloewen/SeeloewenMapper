@@ -32,7 +32,18 @@ namespace SeeloewenMapper.Core.Controller
                 Log.Error($"Error while retrieving initial data from controller #{id}: {ex.Message}");
             }
 
+            CreateVirtualDevice();
 
+            //Begin reading data from stream
+            Thread t = new Thread(ReceiveData);
+            t.Priority = ThreadPriority.Highest;
+            t.Start();
+
+            Log.Info($"Successfully connected and mapped controller #{id}.");
+        }
+
+        public void CreateVirtualDevice()
+        {
             //Create virtual device
             try
             {
@@ -45,21 +56,17 @@ namespace SeeloewenMapper.Core.Controller
             {
                 if (ex is Win32Exception wex && wex.NativeErrorCode == 0)
                 {
-                    Log.Debug($"Creation of virtual device for controller #{id} reported: {ex.Message}");
+                    Log.Debug($"Creation of virtual device for controller #{id} encountered an issue: {ex.Message} - Retrying...");
+                    virtualDevice.Disconnect();
+                    CreateVirtualDevice();
                 }
                 else
                 {
                     Log.Error($"Error while connecting virtual device for controller #{id}: {ex.Message}");
                 }
             }
-
-            //Begin reading data from stream
-            Thread t = new Thread(ReceiveData);
-            t.Priority = ThreadPriority.Highest;
-            t.Start();
-
-            Log.Info($"Successfully connected and mapped controller #{id}.");
         }
+
 
         public void Disconnect()
         {
