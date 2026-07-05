@@ -15,9 +15,9 @@ namespace SeeloewenMapper
 {
     public partial class MainWindow : Window
     {
-        List<Canvas> cvsControllerDisplays = new List<Canvas>();
 
-        public readonly LogPage logPage = new LogPage(); 
+        public readonly LogPage logPage = new LogPage();
+        public readonly HomePage homePage = new HomePage();
 
         public MainWindow()
         {
@@ -25,16 +25,7 @@ namespace SeeloewenMapper
 
             tblHeader.Text = $"SeeloewenMapper Version {Base.VERSION} ({Base.VERSION_DATE})";
             frLog.Navigate(logPage);
-        }
-
-        public void ShowController(string id)
-        {
-            
-        }
-
-        public void HideController(string id)
-        {
-
+            frHome.Navigate(homePage);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

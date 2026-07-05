@@ -50,7 +50,7 @@ namespace SeeloewenMapper.Core.Logging
                 messages.RemoveAt(0);
             }
 
-            ViewModel.UpdateLog();
+            ViewModelMain.UpdateLog();
         }
     }
 }

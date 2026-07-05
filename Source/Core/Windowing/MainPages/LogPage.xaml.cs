@@ -49,6 +49,6 @@ namespace SeeloewenMapper.Core.Windowing.MainPages
             if (stpLog.Children.Count > 1024) stpLog.Children.RemoveAt(0);
         }
 
-        private void cbVerboseMessages_Click(object sender, RoutedEventArgs e) => ViewModel.UpdateLog();
+        private void cbVerboseMessages_Click(object sender, RoutedEventArgs e) => ViewModelMain.UpdateLog();
     }
 }

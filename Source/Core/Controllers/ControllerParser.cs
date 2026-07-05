@@ -1,4 +1,4 @@
-﻿namespace SeeloewenMapper.Core.Controller
+﻿namespace SeeloewenMapper.Core.Controllers
 {
     internal static class ControllerParser
     {

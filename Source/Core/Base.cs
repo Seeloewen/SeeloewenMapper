@@ -1,5 +1,5 @@
 ﻿using Nefarius.ViGEm.Client;
-using SeeloewenMapper.Core.Controller;
+using SeeloewenMapper.Core.Controllers;
 using SeeloewenMapper.Core.Logging;
 using SeeloewenMapper.Core.Windowing;
 
@@ -18,12 +18,11 @@ namespace SeeloewenMapper.Core
             Log.Init();
             Log.Info($"SeeloewenMapper Version {VERSION} ({VERSION_DATE})");
 
-            vigemClient = new ViGEmClient();
-            ConnectionHandler.Init();
-
             WindowManager.Init();
             WindowManager.wndMain.Show();
 
+            vigemClient = new ViGEmClient();
+            ConnectionHandler.Init();
         }
 
         public static void Exit()

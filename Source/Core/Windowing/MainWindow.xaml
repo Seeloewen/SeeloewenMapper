@@ -18,7 +18,7 @@
             </TextBlock.RenderTransform></TextBlock>
         <TabControl x:Name="tcMain" Grid.RowSpan="2" Height="378" Canvas.Left="16" Canvas.Top="46" Width="774">
             <TabItem Header="Controllers">
-                <Frame Background="#FFE5E5E5" Name="frControllers" Content="Use log to see connected controllers">
+                <Frame Background="#FFE5E5E5" Name="frHome">
                 </Frame>
             </TabItem>
             <TabItem Header="Device Configuration">

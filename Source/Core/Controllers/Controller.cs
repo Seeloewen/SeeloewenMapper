@@ -2,9 +2,10 @@
 using Nefarius.ViGEm.Client.Targets;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
 using SeeloewenMapper.Core.Logging;
+using SeeloewenMapper.Core.Windowing.Components;
 using System.ComponentModel;
 
-namespace SeeloewenMapper.Core.Controller
+namespace SeeloewenMapper.Core.Controllers
 {
 
     internal class Controller
@@ -33,6 +34,7 @@ namespace SeeloewenMapper.Core.Controller
             }
 
             CreateVirtualDevice();
+            ControllerDisplayHandler.Add(devicePath, id);
 
             //Begin reading data from stream
             Thread t = new Thread(ReceiveData);
@@ -80,6 +82,8 @@ namespace SeeloewenMapper.Core.Controller
             deviceStream.Dispose();
             ConnectionHandler.controllers.Remove(devicePath);
             isConnected = false;
+
+            ControllerDisplayHandler.Remove(devicePath);
         }
 
         public void ReceiveData()

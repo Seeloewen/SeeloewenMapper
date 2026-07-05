@@ -3,13 +3,13 @@ using HidSharp.Reports;
 using SeeloewenMapper.Core.Logging;
 using System.ComponentModel;
 
-namespace SeeloewenMapper.Core.Controller
+namespace SeeloewenMapper.Core.Controllers
 {
     internal static class ConnectionHandler
     {
         public static int nextId = 0;
 
-        public static Dictionary<string, Controller> controllers;
+        public static Dictionary<string, Controller> controllers; //String is DevicePath
         private static bool skipNextConnection = false; //Used when connecting virtual devices to avoid duplicate OnConnect calls
         private static readonly object connectionLock = new object();
 
@@ -17,12 +17,12 @@ namespace SeeloewenMapper.Core.Controller
         {
             controllers = new Dictionary<string, Controller>();
 
-            DeviceList.Local.Changed += (sender, e) => OnConnect();
+            DeviceList.Local.Changed += (sender, e) => OnConnectDevice();
 
-            OnConnect(); //Call once when starting the software to get already connected devices
+            OnConnectDevice(); //Call once when starting the software to get already connected devices
         }
 
-        public static void OnConnect() //Gets called when ANY device gets connected
+        public static void OnConnectDevice() //Gets called when ANY device gets connected
         {
             lock (connectionLock)
             {

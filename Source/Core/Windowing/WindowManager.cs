@@ -12,7 +12,7 @@ namespace SeeloewenMapper.Core.Windowing
         {
             wndMain = new MainWindow();
 
-            ViewModel.UpdateLog();
+            ViewModelMain.UpdateLog();
         }
     }
 }
