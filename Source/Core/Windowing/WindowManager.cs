@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SeeloewenMapper.Core.Windowing
+﻿namespace SeeloewenMapper.Core.Windowing
 {
     public static class WindowManager
     {
@@ -14,5 +10,15 @@ namespace SeeloewenMapper.Core.Windowing
 
             ViewModelMain.UpdateLog();
         }
+
+        public static void ShowTextWindow(string header, string content)
+        {
+            wndTextContent wnd = new wndTextContent();
+            wnd.Title = header;
+            wnd.tblHeader.Text = header;
+            wnd.tbContent.Text = content;
+            wnd.Show();
+        }
+
     }
 }

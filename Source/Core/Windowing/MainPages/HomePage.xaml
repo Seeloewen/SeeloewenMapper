@@ -8,6 +8,6 @@
       Title="HomePage" Height="355" Width="774">
 
     <Canvas>
-        <ListBox x:Name="lbControllers" Height="300" Width="700"></ListBox>
+        <ListBox x:Name="lbControllers" Height="355" Width="774"></ListBox>
     </Canvas>
 </Page>

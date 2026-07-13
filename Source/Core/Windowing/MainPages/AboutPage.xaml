@@ -1,0 +1,19 @@
+﻿<Page x:Class="SeeloewenMapper.Core.Windowing.MainPages.AboutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SeeloewenMapper.Core.Windowing.MainPages"
+      mc:Ignorable="d" 
+      Height="355" Width="774"
+      Title="AboutPage">
+    <Grid>
+        <TextBlock x:Name="tblName" HorizontalAlignment="Left" Margin="10,4,0,0" TextWrapping="Wrap" Text="SeeloewenMapper" VerticalAlignment="Top" FontSize="16" FontWeight="DemiBold"/>
+        <TextBlock x:Name="tblVersion" HorizontalAlignment="Left" Margin="10,30,0,0" TextWrapping="Wrap" Text="ver" VerticalAlignment="Top"/>
+        <Button x:Name="btnLicense" Content="License" Margin="10,84,629,250" Click="btnLicense_Click"/>
+        <Button x:Name="btnThirdParty" Content="Third-Party Licenses" Margin="10,139,629,195" Click="btnThirdParty_Click"/>
+        <Button x:Name="btnChangelog" Content="Changelog" Margin="10,112,629,223" Click="btnChangelog_Click"/>
+        <TextBlock x:Name="tblDev" HorizontalAlignment="Left" Margin="10,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="By Seeloewen"/></TextBlock>
+
+    </Grid>
+</Page>

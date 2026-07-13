@@ -13,4 +13,8 @@
     <PackageReference Include="Nefarius.ViGEm.Client" Version="1.21.256" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="Resources\*.*" />
+  </ItemGroup>
+
 </Project>

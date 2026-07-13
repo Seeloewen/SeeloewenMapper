@@ -34,7 +34,7 @@
                 </Frame>
             </TabItem>
             <TabItem Header="About">
-                <Frame Name="frAbout" Content="By Seeloewen - Uses ViGEmBusClient by Nefarius and HidSharp by James F. Bellinger" Background="#FFE5E5E5">
+                <Frame Name="frAbout" Content="By Seeloewen - Uses ViGEmBusClient by Nefarius and HidSharp by James F. Bellinger, Controller Icon: https://www.flaticon.com/free-icons/controller" Background="#FFE5E5E5">
                 </Frame>
             </TabItem>
         </TabControl>

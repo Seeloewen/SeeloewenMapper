@@ -1,15 +1,6 @@
 ﻿using SeeloewenMapper.Core;
 using SeeloewenMapper.Core.Windowing.MainPages;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SeeloewenMapper
 {
@@ -18,6 +9,7 @@ namespace SeeloewenMapper
 
         public readonly LogPage logPage = new LogPage();
         public readonly HomePage homePage = new HomePage();
+        public readonly AboutPage aboutPage = new AboutPage();
 
         public MainWindow()
         {
@@ -26,6 +18,7 @@ namespace SeeloewenMapper
             tblHeader.Text = $"SeeloewenMapper Version {Base.VERSION} ({Base.VERSION_DATE})";
             frLog.Navigate(logPage);
             frHome.Navigate(homePage);
+            frAbout.Navigate(aboutPage);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
