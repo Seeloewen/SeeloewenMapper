@@ -63,7 +63,7 @@ namespace SeeloewenMapper.Core.Controllers
                     }
                     catch (Exception ex)
                     {
-                        Log.Warn($"Warning: Could not get Report Descriptor for device {d.GetProductName()}. It cannot be determined if it's a controller. {ex.Message}", true);
+                        Log.Warn($"Could not get Report Descriptor for device {d.GetProductName()}. It cannot be determined if it's a controller. {ex.Message}", true);
                     }
                 }
 
