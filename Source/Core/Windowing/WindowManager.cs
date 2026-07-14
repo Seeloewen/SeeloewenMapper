@@ -2,11 +2,11 @@
 {
     public static class WindowManager
     {
-        public static MainWindow? wndMain;
+        public static wndMain? wndMain;
 
         public static void Init()
         {
-            wndMain = new MainWindow();
+            wndMain = new wndMain();
 
             ViewModelMain.UpdateLog();
         }

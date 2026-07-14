@@ -4,14 +4,14 @@ using System.Windows;
 
 namespace SeeloewenMapper
 {
-    public partial class MainWindow : Window
+    public partial class wndMain : Window
     {
 
         public readonly LogPage logPage = new LogPage();
         public readonly HomePage homePage = new HomePage();
         public readonly AboutPage aboutPage = new AboutPage();
 
-        public MainWindow()
+        public wndMain()
         {
             InitializeComponent();
 
