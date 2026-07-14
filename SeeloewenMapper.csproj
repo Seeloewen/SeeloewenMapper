@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>SeeloewenMapper_Icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,10 @@
 
   <ItemGroup>
     <Resource Include="Resources\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SeeloewenMapper_Icon.ico" />
   </ItemGroup>
 
 </Project>
