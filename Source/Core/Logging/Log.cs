@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 
 namespace SeeloewenMapper.Core.Logging
 {
-    public readonly record struct LogMessage(string message, DateTime dateTime, LogLevel level, bool verbose);
+    public readonly record struct LogMessage(string message, string extraContent, DateTime dateTime, LogLevel level, bool verbose);
 
     public static class Log
     {
@@ -23,24 +23,24 @@ namespace SeeloewenMapper.Core.Logging
 
         public static void Clear() => messages.Clear();
 
-        public static void Info(string message, bool verbose = false)
+        public static void Info(string message, string extra = "", bool verbose = false)
         {
-            messages.Add(new LogMessage(message, DateTime.Now, LogLevel.INFO, verbose));
+            messages.Add(new LogMessage(message, extra, DateTime.Now, LogLevel.INFO, verbose));
         }
 
-        public static void Warn(string message, bool verbose = false)
+        public static void Warn(string message, string extra = "", bool verbose = false)
         {
-            messages.Add(new LogMessage(message, DateTime.Now, LogLevel.WARNING, verbose));
+            messages.Add(new LogMessage(message, extra, DateTime.Now, LogLevel.WARNING, verbose));
         }
 
-        public static void Error(string message, bool verbose = false)
+        public static void Error(string message, string extra = "", bool verbose = false)
         {
-            messages.Add(new LogMessage(message, DateTime.Now, LogLevel.ERROR, verbose));
+            messages.Add(new LogMessage(message, extra, DateTime.Now, LogLevel.ERROR, verbose));
         }
 
-        public static void Debug(string message)
+        public static void Debug(string message, string extra = "")
         {
-            messages.Add(new LogMessage(message, DateTime.Now, LogLevel.DEBUG, true));
+            messages.Add(new LogMessage(message, extra, DateTime.Now, LogLevel.DEBUG, true));
         }
 
         public static void OnLogUpdated(object? sender, NotifyCollectionChangedEventArgs e)

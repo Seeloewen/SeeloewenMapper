@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace SeeloewenMapper.Core.Windowing.MainPages
 {
-    
+
     public partial class LogPage : Page
     {
         private readonly Dictionary<string, SolidColorBrush> prefixColorMap = new()
@@ -25,7 +25,7 @@ namespace SeeloewenMapper.Core.Windowing.MainPages
         private void btnCopy_Click(object sender, RoutedEventArgs e)
         {
             StringBuilder sb = new StringBuilder();
-            foreach(TextBlock item in stpLog.Children)
+            foreach (TextBlock item in stpLog.Children)
             {
                 sb.AppendLine(item.Text);
             }
@@ -39,12 +39,14 @@ namespace SeeloewenMapper.Core.Windowing.MainPages
             Log.Clear();
         }
 
-        public void LogMessage(string text, string dateTime, string prefix, bool isVerbose)
+        public void LogMessage(string text, string extra, string dateTime, string prefix, bool isVerbose)
         {
-            TextBlock tbMessage = new TextBlock() { Text = $"[{dateTime}] [{prefix}] {text}", Foreground = prefixColorMap[prefix], TextWrapping = TextWrapping.Wrap };
+            string message = $"[{dateTime}] [{prefix}] {text}";
+            TextBlock tbMessage = new TextBlock() { Text = message, Foreground = prefixColorMap[prefix], TextWrapping = TextWrapping.Wrap };
+            tbMessage.MouseDown += (sender, e) => WindowManager.ShowTextWindow("Log Entry", $"{text}\n{extra}");
 
-            if (isVerbose && cbVerboseMessages.IsChecked == false) return;
-            
+            if (isVerbose && cbVerboseMessages.IsChecked == false) return; //Ignore verbose messages if disabled
+
             stpLog.Children.Add(tbMessage);
             if (stpLog.Children.Count > 1024) stpLog.Children.RemoveAt(0);
         }

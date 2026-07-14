@@ -19,7 +19,7 @@ namespace SeeloewenMapper.Core
                 List<LogMessage> messages = Log.GetMessages().ToList();
                 foreach (LogMessage message in messages)
                 {
-                    WindowManager.wndMain?.logPage.LogMessage(message.message, message.dateTime.ToString(), message.level.ToString(), message.verbose);
+                    WindowManager.wndMain?.logPage.LogMessage(message.message, message.extraContent, message.dateTime.ToString(), message.level.ToString(), message.verbose);
                 }
             });
         }
