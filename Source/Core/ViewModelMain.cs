@@ -27,15 +27,12 @@ namespace SeeloewenMapper.Core
         public static void UpdateControllerDisplay()
         {
             //Update controller displays based on the information from ControllerDisplayHandler
-            Application.Current.Dispatcher.Invoke(() =>
+            var listbox = WindowManager.wndMain.homePage.lbControllers.Items;
+            listbox.Clear();
+            foreach (var item in ControllerDisplayHandler.controllerDisplays)
             {
-                var listbox = WindowManager.wndMain.homePage.lbControllers.Items;
-                listbox.Clear();
-                foreach (var item in ControllerDisplayHandler.controllerDisplays)
-                {
-                    listbox.Add(item.Value);
-                }
-            });
+                listbox.Add(item.Value);
+            }
         }
     }
 }

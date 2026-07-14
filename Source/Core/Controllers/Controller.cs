@@ -30,7 +30,7 @@ namespace SeeloewenMapper.Core.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error($"Error while retrieving initial data from controller #{id}: {ex.Message}");
+                Log.Error($"Error while retrieving initial data from controller #{id}: {ex.Message}", extra: ex.StackTrace!);
             }
 
             CreateVirtualDevice();
@@ -64,7 +64,7 @@ namespace SeeloewenMapper.Core.Controllers
                 }
                 else
                 {
-                    Log.Error($"Error while connecting virtual device for controller #{id}: {ex.Message}");
+                    Log.Error($"Error while connecting virtual device for controller #{id}: {ex.Message}", extra: ex.StackTrace!);
                 }
             }
         }

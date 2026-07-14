@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -9,7 +10,7 @@ namespace SeeloewenMapper.Core.Windowing.Components
 {
     public class ControllerDisplay : Canvas
     {
-        private TextBlock tblIdentifier = new TextBlock() { FontSize = 16 };
+        private TextBlock tblIdentifier = new TextBlock() { FontSize = 16, FontWeight = FontWeights.DemiBold };
         private Image imgController = new Image() { Width = 40, Height = 40 };
         public ControllerDisplay(int id)
         {
