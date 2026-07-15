@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeeloewenMapper.Core.Windowing"
         mc:Ignorable="d"
-        Title="wndTextContent" Height="557" Width="466">
+        Title="wndTextContent" Height="557" Width="466" ResizeMode="NoResize">
     <Grid>
         <TextBlock x:Name="tblHeader" HorizontalAlignment="Left" Margin="12,10,0,0" TextWrapping="Wrap" Text="tblHeader" VerticalAlignment="Top" FontWeight="DemiBold" FontSize="18"/>
         <TextBox x:Name="tbContent" HorizontalAlignment="Left" Margin="12,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="425" Height="427" IsReadOnly="True"/>
