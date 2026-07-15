@@ -1,9 +1,4 @@
-﻿Uses icons by FlatIcon
-Controller: https://www.flaticon.com/free-icons/controller
-
----------------------------------------------------------------------------------------
-
-ViGEm.NET (https://github.com/nefarius/ViGEm.NET/)
+﻿ViGEm.NET (https://github.com/nefarius/ViGEm.NET/)
 MIT License
 
 Copyright (c) 2018 Benjamin Höglinger-Stelzer

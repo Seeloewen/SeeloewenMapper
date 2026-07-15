@@ -1,4 +1,13 @@
-﻿Version 0.1.0 (20.05.2026)
+﻿Version 0.2.0 (15.07.2026)
+* Added basic display of connected controllers
+* Added an icon to the software
+* Updated 'About' page with software and license details
+* Updated some log messages
+* Main window now has a proper title
+* Log entries can now be clicked to show more details
+* Fixed being able to resize windows beyond their designed size
+
+Version 0.1.0 (20.05.2026)
 * Improved logging for more detailed information
 * Disconnects are now properly handled when the software closes
 * Increased thread priority for better performance and less latency
