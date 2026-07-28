@@ -10,6 +10,7 @@ namespace SeeloewenMapper
         public readonly LogPage logPage = new LogPage();
         public readonly HomePage homePage = new HomePage();
         public readonly AboutPage aboutPage = new AboutPage();
+        public readonly SettingsPage settingsPage = new SettingsPage();
 
         public wndMain()
         {
@@ -19,6 +20,7 @@ namespace SeeloewenMapper
             frLog.Navigate(logPage);
             frHome.Navigate(homePage);
             frAbout.Navigate(aboutPage);
+            frSettings.Navigate(settingsPage);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
