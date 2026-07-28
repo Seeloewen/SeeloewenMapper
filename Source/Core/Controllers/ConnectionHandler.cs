@@ -1,7 +1,7 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
 using SeeloewenMapper.Core.Logging;
-using System.ComponentModel;
+using System.Text;
 
 namespace SeeloewenMapper.Core.Controllers
 {
@@ -51,6 +51,9 @@ namespace SeeloewenMapper.Core.Controllers
 
                                 if (usagePage == 0x01 && usage == 0x05)
                                 {
+#if DEBUG
+                                    LogReportDescriptions(di);
+#endif
                                     //Even though were using a dictionary and can handle duplicates, we don't want to show a duplicate connection info
                                     if (controllers.ContainsKey(d.DevicePath)) continue;
 
@@ -69,6 +72,18 @@ namespace SeeloewenMapper.Core.Controllers
 
                 Log.Info($"Search completed, {controllers.Count} controller(s) are currently connected.");
             }
+        }
+
+        public static void LogReportDescriptions(DeviceItem item)
+        {
+            //Constucts a log entry consisting of the report descriptors
+            StringBuilder sb = new StringBuilder();
+            foreach (Report r in item.Reports)
+            {
+                sb.AppendLine($"Descriptor: Id {r.ReportID}, Type {r.ReportType}, Length {r.Length}");
+            }
+            Log.Debug("Possible controller connected detected, listing report descriptors. [CLICK TO VIEW]", sb.ToString());
+
         }
     }
 }
