@@ -16,6 +16,8 @@ namespace SeeloewenMapper.Core.Controllers
         private HidStream deviceStream;
         public string devicePath;
         private int maxInputReportLength = 0;
+        private int maxFeatureReportLength = 0;
+
         private IXbox360Controller virtualDevice;
 
         public Controller(HidDevice device)
@@ -27,6 +29,9 @@ namespace SeeloewenMapper.Core.Controllers
                 devicePath = device.DevicePath;
                 deviceStream = device.Open();
                 maxInputReportLength = device.GetMaxInputReportLength();
+                maxFeatureReportLength = device.GetMaxFeatureReportLength();
+
+                EnableFullMode();
             }
             catch (Exception ex)
             {
@@ -56,6 +61,7 @@ namespace SeeloewenMapper.Core.Controllers
             }
             catch (Exception ex)
             {
+                //This is a workaround for a weird case, where the virtual device fails to create correctly
                 if (ex is Win32Exception wex && wex.NativeErrorCode == 0)
                 {
                     Log.Debug($"Creation of virtual device for controller #{id} encountered an issue: {ex.Message} - Retrying...");
@@ -68,7 +74,6 @@ namespace SeeloewenMapper.Core.Controllers
                 }
             }
         }
-
 
         public void Disconnect()
         {
@@ -96,7 +101,15 @@ namespace SeeloewenMapper.Core.Controllers
                 {
                     byte[] buffer = new byte[maxInputReportLength];
                     int i = deviceStream.Read(buffer);
-                    SetVirtualState(ControllerParser.FromDS4(buffer));
+                    ConnectionMode m = GetConnectionMode(buffer[0]); //Retrieve the connection mode by checking the mode byte
+
+                    if (m == ConnectionMode.INVALID)
+                    {
+                        Log.Error("Received a packet with an invalid connection mode. The connection may be corrupted or not supported. Skipping...");
+                        return;
+                    }
+
+                    SetVirtualState(ControllerParser.FromDS4(buffer, m));
                 }
                 catch (Exception e)
                 {
@@ -105,6 +118,42 @@ namespace SeeloewenMapper.Core.Controllers
                     break;
                 }
             }
+        }
+
+        private void EnableFullMode()
+        {
+            SetFeature(0x02); //Enable full mode for bt controllers
+
+            //Get an initial report and check whether the correct mode is enabled
+            byte[] buffer = new byte[maxInputReportLength];
+            int i = deviceStream.Read(buffer);
+
+            switch (GetConnectionMode(buffer[0]))
+            {
+                case ConnectionMode.BASIC:
+                    Log.Debug($"Controller #{id} is now connected in basic mode. This is normal if the connection method is USB.");
+                    break;
+                case ConnectionMode.FULL:
+                    Log.Debug($"Controller #{id} is now connected in full mode. This is normal if the connection method is Bluetooth.");
+                    break;
+                case ConnectionMode.INVALID:
+                    throw new Exception("First bytes from the initial mode check were invalid. The connection may be faulty!");
+            }
+        }
+
+        private ConnectionMode GetConnectionMode(byte b) => b switch
+        {
+            0x01 => ConnectionMode.BASIC,
+            0x11 => ConnectionMode.FULL,
+            _ => ConnectionMode.INVALID
+        };
+
+        public void SetFeature(int featureId)
+        {
+            byte[] buffer = new byte[maxFeatureReportLength];
+            buffer[0] = (byte)featureId;
+
+            deviceStream.GetFeature(buffer);
         }
 
         public void SetVirtualState(VirtualState state)
