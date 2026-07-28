@@ -1,4 +1,9 @@
-﻿Version 0.2.0 (15.07.2026)
+﻿Version 0.2.1 (28.07.2026)
+* Added support for BT full connection mode
+* Added shortcut to 'Gamecontrollers' dialog in settings page
+* Received controller input reports are now somewhat validated
+
+Version 0.2.0 (15.07.2026)
 * Added basic display of connected controllers
 * Added an icon to the software
 * Updated 'About' page with software and license details

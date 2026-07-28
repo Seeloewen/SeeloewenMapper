@@ -16,7 +16,7 @@ namespace SeeloewenMapper
         {
             InitializeComponent();
 
-            tblHeader.Text = $"SeeloewenMapper Version {Base.VERSION} ({Base.VERSION_DATE})";
+            tblHeader.Text = $"SeeloewenMapper {Base.VERSION}";
             frLog.Navigate(logPage);
             frHome.Navigate(homePage);
             frAbout.Navigate(aboutPage);
